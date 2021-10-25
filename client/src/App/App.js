@@ -9,16 +9,10 @@ function App() {
 	const [yourName, setYourName] = useState("");
 	const [yourSurname, setYourSurname] = useState("");
 	const [text, setText] = useState("");
-	const [emailTo, setEmailTo] = useState("");
 	const [confirmIsOpen, setConfirmIsOpen] = useState(false);
 	const [submitEvent, setSubmitEvent] = useState({});
 	const [buttonsDisabled, setButtonsDisabled] = useState(false); //during waiting for server response
-	//validation
-	const [nameValidated, setNameValidated] = useState(false);
-	const [surnameValidated, setSurnameValidated] = useState(false);
-	const [textValidated, setTextValidated] = useState(false);
-	const [loaderIsVisible, setLoaderIsVisible] = useState(false);
-
+	
 	function emailValidator(string) {
 		const regex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
 		return regex.test(string);
@@ -34,7 +28,6 @@ function App() {
 		setYourSurname("");
 		setText("");
 		setYourName("");
-		setEmailTo("");
 		setButtonsDisabled(true);
 		setLoaderIsVisible(true);
 		fetch("/send_info/", {
@@ -74,7 +67,13 @@ function App() {
 				alert("Something went wrong with server...\n Try later\n" + error);
 			});
 	}
-
+	
+	//validation
+	const [nameValidated, setNameValidated] = useState(false);
+	const [surnameValidated, setSurnameValidated] = useState(false);
+	const [textValidated, setTextValidated] = useState(false);
+	const [loaderIsVisible, setLoaderIsVisible] = useState(false);
+	
 	return (
 		<form onSubmit={onSubmitHandler} className="App">
 			<Loader visible={loaderIsVisible} />
