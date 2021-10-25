@@ -65,6 +65,9 @@ let lastTime = 0;
 let timer = 30000;//how many milliseconds will be between two messages(minimum)
 
 app.post('/send_info/', (request, response)=>{
+    let ip = request.headers['x-forwarded-for'] ||
+        request.socket.remoteAddress || null;
+    console.log('<<<<<<<< ip address: ' + ip);                  //this is an ip address of user
     if(Date.now() - lastTime > timer) {//timer
         requiredInfo = request.body;
         const mailer = new Mailer(requiredInfo.name, requiredInfo.surname, requiredInfo.text, emailFrom, passwordFrom, emailTo);
