@@ -52,6 +52,8 @@ let passwordFrom = process.env.PASSWORD_FROM;
 let emailTo = process.env.EMAIL_TO;//by default
 
 
+const IPAddressesAndTimers = new Map();
+
 
 
 let requiredInfo = {
@@ -61,19 +63,24 @@ let requiredInfo = {
     emailTo:''
 }
 
-let lastTime = 0;
 let timer = 30000;//how many milliseconds will be between two messages(minimum)
 
 app.post('/send_info/', (request, response)=>{
     let ip = request.headers['x-forwarded-for'] ||
         request.socket.remoteAddress || null;
     console.log('<<<<<<<< ip address: ' + ip);                  //this is an ip address of user
-    if(Date.now() - lastTime > timer) {//timer
+    if( !IPAddressesAndTimers.get(ip) ){
+        //this user did not send any mail
+        IPAddressesAndTimers.set(ip, 0);
+    }
+
+    //calculating permission and sending mail
+    if(Date.now() - IPAddressesAndTimers.get(ip) > timer) {//timer
         requiredInfo = request.body;
         const mailer = new Mailer(requiredInfo.name, requiredInfo.surname, requiredInfo.text, emailFrom, passwordFrom, emailTo);
         console.log(requiredInfo);
         mailer.send();
-        lastTime = Date.now();
+        IPAddressesAndTimers.set(ip, Date.now());
         response.status(200).send({permission: 'yes', sent: true});
     }else{
         response.status(200).send({permission: 'no', sent: false});
