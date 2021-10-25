@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import Header from "../Header/Header";
 import ModalWindow from "../Modal/ModalWindow";
 import Incorrect from "../Incorrect/Incorrect";
@@ -118,7 +118,7 @@ function App() {
 					}
 				}}
 			/>
-			{!surnameValidated && <Incorrect type={"name"} />}
+			{!surnameValidated && <Incorrect type={"surname"} />}
 
 			<textarea
 				value={text}
