@@ -64,7 +64,7 @@ function App() {
                         'your google account.');
                 }
         }).catch((error) => {
-            alert('Something went wrong...\n Try later\n' + error);
+            alert('Something went wrong with server...\n Try later\n' + error);
         });
 
     }
