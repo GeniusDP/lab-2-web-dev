@@ -14,8 +14,8 @@ function App() {
 	const [submitEvent, setSubmitEvent] = useState({});
 	const [buttonsDisabled, setButtonsDisabled] = useState(false); //during waiting for server response
 	const [modalForInfoIsOpen, setModalForInfoIsOpen] = useState(false);
-	const [infoText, setInfoText] = useState('');
-	
+	const [infoText, setInfoText] = useState("");
+
 	function emailValidator(string) {
 		const regex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
 		return regex.test(string);
@@ -34,8 +34,8 @@ function App() {
 		} else {
 			setNameValidated(false);
 		}
-	}
-	
+	};
+
 	const inputSurnameOnChange = (event) => {
 		event.preventDefault();
 		setYourSurname(event.target.value);
@@ -44,8 +44,8 @@ function App() {
 		} else {
 			setSurnameValidated(false);
 		}
-	}
-	
+	};
+
 	const textareaOnChange = (event) => {
 		event.preventDefault();
 		setText(event.target.value);
@@ -54,32 +54,25 @@ function App() {
 		} else {
 			setTextValidated(false);
 		}
-	}
+	};
 
 	const buttonSendOnClick = (event) => {
 		event.preventDefault();
-		if (
-			yourName.length &&
-			yourSurname.length &&
-			text.length
-		) {
+		if (yourName.length && yourSurname.length && text.length) {
 			setSubmitEvent(event);
 			setConfirmIsOpen(true);
 		} else {
 			setInfoText("You have to validate form before sending email");
 			setModalForInfoIsOpen(true);
 		}
-	}
+	};
 
 	const buttonResetOnClick = (event) => {
 		event.preventDefault();
 		setYourSurname("");
 		setText("");
 		setYourName("");
-	}
-
-
-
+	};
 
 	function onSubmitHandler(event) {
 		//event.preventDefault();
@@ -108,59 +101,61 @@ function App() {
 				setButtonsDisabled(false);
 				setLoaderIsVisible(false);
 				if (body.permission === "no") {
-						setInfoText("You cannot write a new letter more the 1 time per 30 sec. Try later.");
-						setModalForInfoIsOpen(true);
-				
-						return;
-				}
-				if (body.sent === true) {
-						setInfoText("Your letter was sent.");
-						setModalForInfoIsOpen(true);
-						return;
-				}
-				if (body.sent === false) {
-					setInfoText("Sending of your letter was aborted (look through your password and e-mail to fix the problem)" +
-						'Also problem may be if you did not gave a permission to use "strange programs" to send e-mails if ' +
-						"your google account.");
+					setInfoText(
+						"You cannot write a new letter more the 1 time per 30 sec. Try later."
+					);
 					setModalForInfoIsOpen(true);
 					return;
 				}
-						
+				if (body.sent === true) {
+					setInfoText("Your letter was sent.");
+					setModalForInfoIsOpen(true);
+					return;
+				}
+				if (body.sent === false) {
+					setInfoText(
+						"Sending of your letter was aborted (look through your password and e-mail to fix the problem)" +
+							'Also problem may be if you did not gave a permission to use "strange programs" to send e-mails if ' +
+							"your google account."
+					);
+					setModalForInfoIsOpen(true);
+					return;
+				}
 			})
 			.catch((error) => {
-				setInfoText("Something went wrong with server...\n Try later\n" + error);
+				setInfoText(
+					"Something went wrong with server...\n Try later\n" + error
+				);
 				setLoaderIsVisible(false);
 				setModalForInfoIsOpen(true);
 			});
 	}
-	
+
 	//validation
 	const [nameValidated, setNameValidated] = useState(false);
 	const [surnameValidated, setSurnameValidated] = useState(false);
 	const [textValidated, setTextValidated] = useState(false);
 	const [loaderIsVisible, setLoaderIsVisible] = useState(false);
 
-
 	return (
 		<form onSubmit={onSubmitHandler} className="App">
 			<Loader visible={loaderIsVisible} />
 			<Header />
-						<ModalWindow
-							modalIsOpen={confirmIsOpen}
-							setModalIsOpen={setConfirmIsOpen}
-							submitHandler={onSubmitHandler}
-							submitEvent={submitEvent}
-						>
-							<h1>Do you want to send this e-mail?</h1>
-						</ModalWindow>
-			
-			
-						<ModalForInfo
-								isOpen={modalForInfoIsOpen}	
-								setIsOpen={setModalForInfoIsOpen}
-						>
-							<h1>{infoText}</h1>
-						</ModalForInfo>
+			<ModalWindow
+				modalIsOpen={confirmIsOpen}
+				setModalIsOpen={setConfirmIsOpen}
+				submitHandler={onSubmitHandler}
+				submitEvent={submitEvent}
+			>
+				<h1>Do you want to send this e-mail?</h1>
+			</ModalWindow>
+
+			<ModalForInfo
+				isOpen={modalForInfoIsOpen}
+				setIsOpen={setModalForInfoIsOpen}
+			>
+				<h1>{infoText}</h1>
+			</ModalForInfo>
 			<input
 				type={"text"}
 				value={yourName}
@@ -177,11 +172,7 @@ function App() {
 			/>
 			{!surnameValidated && <Incorrect type={"surname"} />}
 
-			<textarea
-				value={text}
-				maxLength={500}
-				onChange={textareaOnChange}
-			/>
+			<textarea value={text} maxLength={500} onChange={textareaOnChange} />
 			{!textValidated && <Incorrect type={"text"} />}
 			<button
 				disabled={buttonsDisabled}
