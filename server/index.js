@@ -27,7 +27,7 @@ class Mailer {
 			subject: `A message to you from ${this.emailFrom}`,
 			text:
 				`This email is sent from ${this.username} ${this.surname} to you.\n` +
-				`Here is msg:\n ${this.text}`,
+				`Here is msg:\n${this.text}`,
 		};
 
 		transporter.sendMail(mailOptions, (error, info) => {
@@ -59,9 +59,9 @@ let requiredInfo = {
 	emailTo: "",
 };
 
-let timer = 30000; //how many milliseconds will be between two messages(minimum)
+let timer = 15000; //how many milliseconds will be between two messages(minimum)
 
-app.post("/send_info/", (request, response) => {
+app.post("/send_info", (request, response) => {
 	let ip =
 		request.headers["x-forwarded-for"] || request.socket.remoteAddress || null;
 	console.log("<<<<<<<< ip address: " + ip); //this is an ip address of user
@@ -83,7 +83,7 @@ app.post("/send_info/", (request, response) => {
 			emailTo
 		);
 		console.log(requiredInfo);
-		mailer.send();
+		//mailer.send();
 		IPAddressesAndTimers.set(ip, Date.now());
 		response.status(200).send({ permission: "yes", sent: true });
 	} else {
