@@ -1,6 +1,9 @@
 * {
 	margin: 0px;
 	padding: 0px;
+	--button-on-hover: #8282f6;
+	--main-blue: #4848f1;
+	--main-white: cornsilk;
 }
 body {
 	margin: 0;
@@ -19,8 +22,9 @@ body {
 	justify-content: center;
 	align-items: center;
 }
+
 body {
-	background: #4848f1;
+	background: var(--main-blue);
 }
 
 .root {
@@ -30,7 +34,7 @@ body {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	background: cornsilk;
+	background: var(--main-white);
 	border: 0px solid black;
 	border-radius: 20px;
 }
@@ -43,12 +47,12 @@ textarea {
 }
 
 button {
-	background: #4848f1;
-	color: cornsilk;
+	background: var(--main-blue);
+	color: var(--main-white);
 	font-size: 20px;
 	border-radius: 5px;
 }
 
 button:hover {
-	background: #8282f6;
+	background: var(--button-on-hover);
 }
