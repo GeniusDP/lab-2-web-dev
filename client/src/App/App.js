@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import ModalWindow from "../Modal/ModalWindow";
 import Incorrect from "../Incorrect/Incorrect";
 import Loader from "../Loader/Loader";
+import ModalForInfo from "../Modal/ModalForInfo";
 
 function App() {
 	const [yourName, setYourName] = useState("");
@@ -12,6 +13,7 @@ function App() {
 	const [confirmIsOpen, setConfirmIsOpen] = useState(false);
 	const [submitEvent, setSubmitEvent] = useState({});
 	const [buttonsDisabled, setButtonsDisabled] = useState(false); //during waiting for server response
+	const [modalForInfoIsOpen, setModalForInfoIsOpen] = useState(false);
 	
 	function emailValidator(string) {
 		const regex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
@@ -20,7 +22,7 @@ function App() {
 
 	function textValidator(string) {
 		//if not empty => so good:)
-		return string.length > 0;
+		return string.length;
 	}
 
 	function onSubmitHandler(event) {
@@ -84,15 +86,20 @@ function App() {
 		<form onSubmit={onSubmitHandler} className="App">
 			<Loader visible={loaderIsVisible} />
 			<Header />
-			<ModalWindow
-				modalIsOpen={confirmIsOpen}
-				setModalIsOpen={setConfirmIsOpen}
-				submitHandler={onSubmitHandler}
-				submitEvent={submitEvent}
-			>
-				<h1>Do you want to send this e-mail?</h1>
-			</ModalWindow>
-
+						<ModalWindow
+							modalIsOpen={confirmIsOpen}
+							setModalIsOpen={setConfirmIsOpen}
+							submitHandler={onSubmitHandler}
+							submitEvent={submitEvent}
+						>
+							<h1>Do you want to send this e-mail?</h1>
+						</ModalWindow>
+						<ModalForInfo
+								isOpen={modalForInfoIsOpen}	
+								setIsOpen={setModalForInfoIsOpen}
+						>
+								hello!
+						</ModalForInfo>
 			<input
 				type={"text"}
 				value={yourName}
@@ -145,9 +152,9 @@ function App() {
 				onClick={(event) => {
 					event.preventDefault();
 					if (
-						yourName.length > 0 &&
-						yourSurname.length > 0 &&
-						text.length > 0
+						yourName.length &&
+						yourSurname.length &&
+						text.length
 					) {
 						setSubmitEvent(event);
 						setConfirmIsOpen(true);
