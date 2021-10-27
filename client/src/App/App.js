@@ -14,6 +14,7 @@ function App() {
 	const [submitEvent, setSubmitEvent] = useState({});
 	const [buttonsDisabled, setButtonsDisabled] = useState(false); //during waiting for server response
 	const [modalForInfoIsOpen, setModalForInfoIsOpen] = useState(false);
+	const [infoText, setInfoText] = useState('');
 	
 	function emailValidator(string) {
 		const regex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
@@ -94,11 +95,13 @@ function App() {
 						>
 							<h1>Do you want to send this e-mail?</h1>
 						</ModalWindow>
+			
+			
 						<ModalForInfo
 								isOpen={modalForInfoIsOpen}	
 								setIsOpen={setModalForInfoIsOpen}
 						>
-								hello!
+							<h1>{infoText}</h1>
 						</ModalForInfo>
 			<input
 				type={"text"}
