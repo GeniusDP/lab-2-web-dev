@@ -53,27 +53,29 @@ function App() {
 				setButtonsDisabled(false);
 				setLoaderIsVisible(false);
 				if (body.permission === "no") {
-						alert(
-							"You cannot write a new letter more the 1 time per 30 sec. Try later."
-						);
+						setInfoText("You cannot write a new letter more the 1 time per 30 sec. Try later.");
+						setModalForInfoIsOpen(true);
+				
 						return;
 				}
 				if (body.sent === true) {
-						alert("Your letter was sent.");
+						setInfoText("Your letter was sent.");
+						setModalForInfoIsOpen(true);
 						return;
 				}
 				if (body.sent === false) {
-					alert(
-						"Sending of your letter was aborted (look through your password and e-mail to fix the problem)" +
+					setInfoText("Sending of your letter was aborted (look through your password and e-mail to fix the problem)" +
 						'Also problem may be if you did not gave a permission to use "strange programs" to send e-mails if ' +
-						"your google account."
-					);
+						"your google account.");
+					setModalForInfoIsOpen(true);
 					return;
 				}
 						
 			})
 			.catch((error) => {
-				alert("Something went wrong with server...\n Try later\n" + error);
+				setInfoText("Something went wrong with server...\n Try later\n" + error);
+				setLoaderIsVisible(false);
+				setModalForInfoIsOpen(true);
 			});
 	}
 	
@@ -162,7 +164,8 @@ function App() {
 						setSubmitEvent(event);
 						setConfirmIsOpen(true);
 					} else {
-						alert("You have to validate form before sending email");
+							setInfoText("You have to validate form before sending email");
+							setModalForInfoIsOpen(true);
 					}
 				}}
 			>
