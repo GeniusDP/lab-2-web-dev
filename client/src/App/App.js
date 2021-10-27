@@ -30,7 +30,7 @@ function App() {
 		setYourName("");
 		setButtonsDisabled(true);
 		setLoaderIsVisible(true);
-		fetch("/send_info/", {
+		fetch("/send_info", {
 			method: "POST",
 			headers: new Headers({
 				Accept: "application/json",
