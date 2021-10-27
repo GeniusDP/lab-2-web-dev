@@ -8,6 +8,12 @@ const ModalForInfo = (
 		setIsOpen
 	}
 ) => {
+	
+	const buttonOkOnClick = (event) => {
+		event.preventDefault();
+		setIsOpen(false);
+	}
+	
 	const classes = ["Modal"];
 	if (isOpen) {
 		classes.push("modal-active");
@@ -21,11 +27,7 @@ const ModalForInfo = (
 				>
 					{children}
 						<button
-							onClick={(event) => {
-									event.preventDefault();
-									setIsOpen(false);
-								}
-							}
+							onClick={buttonOkOnClick}
 						>
 							Ok
 						</button>

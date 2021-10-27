@@ -83,7 +83,7 @@ app.post("/send_info", (request, response) => {
 			emailTo
 		);
 		console.log(requiredInfo);
-		mailer.send();
+		//mailer.send();
 		IPAddressesAndTimers.set(ip, Date.now());
 		response.status(200).send({ permission: "yes", sent: true });
 	} else {

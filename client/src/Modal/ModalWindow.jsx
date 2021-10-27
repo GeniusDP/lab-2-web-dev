@@ -7,6 +7,18 @@ const ModalWindow = ({
 	submitHandler,
 	submitEvent,
 }) => {
+	
+	const buttonConfirmOnClick = (event) => {
+		event.preventDefault();
+		submitHandler(submitEvent);
+		setModalIsOpen(false);
+	}
+	
+	const buttonNotNowOnClick = (event) => {
+		event.preventDefault();
+		setModalIsOpen(false);
+	}
+	
 	const classes = ["Modal"];
 	if (modalIsOpen) {
 		classes.push("modal-active");
@@ -20,19 +32,12 @@ const ModalWindow = ({
 					{children}
 					<div className={"button-group"}>
 						<button
-							onClick={(event) => {
-								event.preventDefault();
-								submitHandler(submitEvent);
-								setModalIsOpen(false);
-							}}
+							onClick={buttonConfirmOnClick}
 						>
 							Yes
 						</button>
 						<button
-							onClick={(event) => {
-								event.preventDefault();
-								setModalIsOpen(false);
-							}}
+							onClick={buttonNotNowOnClick}
 						>
 							Not now
 						</button>

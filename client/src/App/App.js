@@ -26,8 +26,63 @@ function App() {
 		return string.length;
 	}
 
-	function onSubmitHandler(event) {
+	const inputNameOnChange = (event) => {
 		event.preventDefault();
+		setYourName(event.target.value);
+		if (textValidator(event.target.value)) {
+			setNameValidated(true);
+		} else {
+			setNameValidated(false);
+		}
+	}
+	
+	const inputSurnameOnChange = (event) => {
+		event.preventDefault();
+		setYourSurname(event.target.value);
+		if (textValidator(event.target.value)) {
+			setSurnameValidated(true);
+		} else {
+			setSurnameValidated(false);
+		}
+	}
+	
+	const textareaOnChange = (event) => {
+		event.preventDefault();
+		setText(event.target.value);
+		if (textValidator(event.target.value)) {
+			setTextValidated(true);
+		} else {
+			setTextValidated(false);
+		}
+	}
+
+	const buttonSendOnClick = (event) => {
+		event.preventDefault();
+		if (
+			yourName.length &&
+			yourSurname.length &&
+			text.length
+		) {
+			setSubmitEvent(event);
+			setConfirmIsOpen(true);
+		} else {
+			setInfoText("You have to validate form before sending email");
+			setModalForInfoIsOpen(true);
+		}
+	}
+
+	const buttonResetOnClick = (event) => {
+		event.preventDefault();
+		setYourSurname("");
+		setText("");
+		setYourName("");
+	}
+
+
+
+
+	function onSubmitHandler(event) {
+		//event.preventDefault();
 		setYourSurname("");
 		setText("");
 		setYourName("");
@@ -84,7 +139,8 @@ function App() {
 	const [surnameValidated, setSurnameValidated] = useState(false);
 	const [textValidated, setTextValidated] = useState(false);
 	const [loaderIsVisible, setLoaderIsVisible] = useState(false);
-	
+
+
 	return (
 		<form onSubmit={onSubmitHandler} className="App">
 			<Loader visible={loaderIsVisible} />
@@ -109,15 +165,7 @@ function App() {
 				type={"text"}
 				value={yourName}
 				placeholder={"your name"}
-				onChange={(event) => {
-					event.preventDefault();
-					setYourName(event.target.value);
-					if (textValidator(event.target.value)) {
-						setNameValidated(true);
-					} else {
-						setNameValidated(false);
-					}
-				}}
+				onChange={inputNameOnChange}
 			/>
 			{!nameValidated && <Incorrect type={"name"} />}
 
@@ -125,49 +173,20 @@ function App() {
 				type={"text"}
 				value={yourSurname}
 				placeholder={"your surname"}
-				onChange={(event) => {
-					event.preventDefault();
-					setYourSurname(event.target.value);
-					if (textValidator(event.target.value)) {
-						setSurnameValidated(true);
-					} else {
-						setSurnameValidated(false);
-					}
-				}}
+				onChange={inputSurnameOnChange}
 			/>
 			{!surnameValidated && <Incorrect type={"surname"} />}
 
 			<textarea
 				value={text}
 				maxLength={500}
-				onChange={(event) => {
-					event.preventDefault();
-					setText(event.target.value);
-					if (textValidator(event.target.value)) {
-						setTextValidated(true);
-					} else {
-						setTextValidated(false);
-					}
-				}}
+				onChange={textareaOnChange}
 			/>
 			{!textValidated && <Incorrect type={"text"} />}
 			<button
 				disabled={buttonsDisabled}
 				type={"submit"}
-				onClick={(event) => {
-					event.preventDefault();
-					if (
-						yourName.length &&
-						yourSurname.length &&
-						text.length
-					) {
-						setSubmitEvent(event);
-						setConfirmIsOpen(true);
-					} else {
-							setInfoText("You have to validate form before sending email");
-							setModalForInfoIsOpen(true);
-					}
-				}}
+				onClick={buttonSendOnClick}
 			>
 				Send!
 			</button>
@@ -175,12 +194,7 @@ function App() {
 			<button
 				disabled={buttonsDisabled}
 				type={"reset"}
-				onClick={(event) => {
-					event.preventDefault();
-					setYourSurname("");
-					setText("");
-					setYourName("");
-				}}
+				onClick={buttonResetOnClick}
 			>
 				Cancel!
 			</button>
