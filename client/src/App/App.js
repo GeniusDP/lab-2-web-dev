@@ -49,11 +49,7 @@ function App() {
 	const textareaOnChange = (event) => {
 		event.preventDefault();
 		setText(event.target.value);
-		if (textValidator(event.target.value)) {
-			setTextValidated(true);
-		} else {
-			setTextValidated(false);
-		}
+		setTextValidated(textValidator(event.target.value));
 	};
 
 	const buttonSendOnClick = (event) => {
@@ -75,7 +71,7 @@ function App() {
 	};
 
 	function onSubmitHandler(event) {
-		//event.preventDefault();
+		event.preventDefault();
 		setYourSurname("");
 		setText("");
 		setYourName("");
@@ -107,12 +103,12 @@ function App() {
 					setModalForInfoIsOpen(true);
 					return;
 				}
-				if (body.sent === true) {
+				if (body.sent) {
 					setInfoText("Your letter was sent.");
 					setModalForInfoIsOpen(true);
 					return;
 				}
-				if (body.sent === false) {
+				if (!body.sent) {
 					setInfoText(
 						"Sending of your letter was aborted (look through your password and e-mail to fix the problem)" +
 							'Also problem may be if you did not gave a permission to use "strange programs" to send e-mails if ' +
