@@ -134,7 +134,7 @@ function App() {
 	const [loaderIsVisible, setLoaderIsVisible] = useState(false);
 
 	return (
-		<form onSubmit={onSubmitHandler} className="App" id = "myForm">
+		<form onSubmit={onSubmitHandler} className="App" id="myForm">
 			<Loader visible={loaderIsVisible} />
 			<Header />
 			<ModalWindow
@@ -157,7 +157,6 @@ function App() {
 				value={yourName}
 				placeholder={"your name"}
 				onChange={inputNameOnChange}
-				
 			/>
 			{!nameValidated && <Incorrect type={"name"} />}
 
