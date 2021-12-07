@@ -1,10 +1,10 @@
-import "./App.css";
+import "./App.css"
 import React, { useState } from "react";
-import Header from "../Header/Header";
-import ModalWindow from "../Modal/ModalWindow";
-import Incorrect from "../Incorrect/Incorrect";
-import Loader from "../Loader/Loader";
-import ModalForInfo from "../Modal/ModalForInfo";
+import Header from "../Header/Header.jsx";
+import ModalWindow from "../Modal/ModalWindow.jsx";
+import Incorrect from "../Incorrect/Incorrect.jsx";
+import Loader from "../Loader/Loader.jsx";
+import ModalForInfo from "../Modal/ModalForInfo.jsx";
 
 function App() {
 	const [yourName, setYourName] = useState("");
