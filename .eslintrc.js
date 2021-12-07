@@ -4,7 +4,7 @@ module.exports = {
 		es2021: true,
 		
 	},
-	extends: ["metarhia"],
+	extends: ["metarhia", "plugin:sonarjs/recommended"],
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: false,
