@@ -8,10 +8,10 @@
 		"dev": "nodemon server/index.js",
 		"build": "npm install --prefix ./client && npm run build --prefix ./client",
 		"test": "npm run lint && npm run fmt",
-		"lint": "eslint .",
-		"fmt": "prettier . --write",
+		"lint": "eslint .  --ignore-path .gitignore",
+		"fmt": "prettier . --write  --ignore-path .gitignore",
 		"prepare": "husky install",
-		"lint:fix": "eslint . --fix"
+		"lint:fix": "eslint . --fix  --ignore-path .gitignore"
 	},
 	"keywords": [],
 	"author": "",
