@@ -17,5 +17,7 @@ module.exports = {
 		quotes: [2, "double", { avoidEscape: true }],
 		indent: ["error", "tab"],
 		"linebreak-style": ["error", "windows"],
+		"sonarjs/cognitive-complexity": "error",
+		"sonarjs/no-identical-expressions": "error"
 	},
 };
