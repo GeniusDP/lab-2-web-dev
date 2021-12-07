@@ -87,7 +87,7 @@ app.post("/send_info", (request, response) => {
 		IPAddressesAndTimers.set(ip, Date.now());
 		response.status(200).send({ permission: "yes", sent: true });
 	} else {
-		response.status(200).send({ permission: "no", sent: false });
+		response.status(429).send({ permission: "no", sent: false });
 	}
 });
 
