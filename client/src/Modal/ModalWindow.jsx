@@ -1,12 +1,6 @@
 import React from "react";
 import "./Modal.css";
-const ModalWindow = ({
-	children,
-	modalIsOpen,
-	setModalIsOpen,
-	submitHandler,
-	submitEvent,
-}) => {
+const ModalWindow = ({ children, modalIsOpen, setModalIsOpen, submitHandler, submitEvent }) => {
 	const buttonConfirmOnClick = (event) => {
 		event.preventDefault();
 		submitHandler(submitEvent);
@@ -24,10 +18,7 @@ const ModalWindow = ({
 	}
 	return (
 		<div className={classes.join(" ")} onClick={() => setModalIsOpen(false)}>
-			<div
-				className={"modal-content"}
-				onClick={(event) => event.stopPropagation()}
-			>
+			<div className={"modal-content"} onClick={(event) => event.stopPropagation()}>
 				{children}
 				<div className={"button-group"}>
 					<button onClick={buttonConfirmOnClick}>Yes</button>

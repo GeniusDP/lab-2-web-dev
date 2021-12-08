@@ -13,10 +13,7 @@ const ModalForInfo = ({ children, isOpen, setIsOpen }) => {
 	}
 	return (
 		<div className={classes.join(" ")} onClick={() => setIsOpen(false)}>
-			<div
-				className={"modal-content"}
-				onClick={(event) => event.stopPropagation()}
-			>
+			<div className={"modal-content"} onClick={(event) => event.stopPropagation()}>
 				{children}
 				<button onClick={buttonOkOnClick}>Ok</button>
 			</div>

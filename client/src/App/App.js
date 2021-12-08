@@ -1,10 +1,10 @@
 import "./App.css";
 import React, { useState } from "react";
-import Header from "../Header/Header";
-import ModalWindow from "../Modal/ModalWindow";
-import Incorrect from "../Incorrect/Incorrect";
-import Loader from "../Loader/Loader";
-import ModalForInfo from "../Modal/ModalForInfo";
+import Header from "../Header/Header.jsx";
+import ModalWindow from "../Modal/ModalWindow.jsx";
+import Incorrect from "../Incorrect/Incorrect.jsx";
+import Loader from "../Loader/Loader.jsx";
+import ModalForInfo from "../Modal/ModalForInfo.jsx";
 
 function App() {
 	const [yourName, setYourName] = useState("");
@@ -15,11 +15,6 @@ function App() {
 	const [buttonsDisabled, setButtonsDisabled] = useState(false); //during waiting for server response
 	const [modalForInfoIsOpen, setModalForInfoIsOpen] = useState(false);
 	const [infoText, setInfoText] = useState("");
-
-	function emailValidator(string) {
-		const regex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
-		return regex.test(string);
-	}
 
 	function textValidator(string) {
 		//if not empty => so good:)
@@ -49,11 +44,7 @@ function App() {
 	const textareaOnChange = (event) => {
 		event.preventDefault();
 		setText(event.target.value);
-		if (textValidator(event.target.value)) {
-			setTextValidated(true);
-		} else {
-			setTextValidated(false);
-		}
+		setTextValidated(textValidator(event.target.value));
 	};
 
 	const buttonSendOnClick = (event) => {
@@ -75,7 +66,7 @@ function App() {
 	};
 
 	function onSubmitHandler(event) {
-		//event.preventDefault();
+		event.preventDefault();
 		setYourSurname("");
 		setText("");
 		setYourName("");
@@ -102,30 +93,28 @@ function App() {
 				setLoaderIsVisible(false);
 				if (body.permission === "no") {
 					setInfoText(
-						"You cannot write a new letter more the 1 time per 30 sec. Try later."
+						"You cannot write a new letter more the 1 time per 30 sec. Try later.",
 					);
 					setModalForInfoIsOpen(true);
 					return;
 				}
-				if (body.sent === true) {
+				if (body.sent) {
 					setInfoText("Your letter was sent.");
 					setModalForInfoIsOpen(true);
 					return;
 				}
-				if (body.sent === false) {
+				if (!body.sent) {
 					setInfoText(
 						"Sending of your letter was aborted (look through your password and e-mail to fix the problem)" +
 							'Also problem may be if you did not gave a permission to use "strange programs" to send e-mails if ' +
-							"your google account."
+							"your google account.",
 					);
 					setModalForInfoIsOpen(true);
 					return;
 				}
 			})
 			.catch((error) => {
-				setInfoText(
-					"Something went wrong with server...\n Try later\n" + error
-				);
+				setInfoText("Something went wrong with server...\n Try later\n" + error);
 				setLoaderIsVisible(false);
 				setModalForInfoIsOpen(true);
 			});
@@ -138,7 +127,7 @@ function App() {
 	const [loaderIsVisible, setLoaderIsVisible] = useState(false);
 
 	return (
-		<form onSubmit={onSubmitHandler} className="App">
+		<form onSubmit={onSubmitHandler} className="App" id="myForm">
 			<Loader visible={loaderIsVisible} />
 			<Header />
 			<ModalWindow
@@ -150,10 +139,7 @@ function App() {
 				<h1>Do you want to send this e-mail?</h1>
 			</ModalWindow>
 
-			<ModalForInfo
-				isOpen={modalForInfoIsOpen}
-				setIsOpen={setModalForInfoIsOpen}
-			>
+			<ModalForInfo isOpen={modalForInfoIsOpen} setIsOpen={setModalForInfoIsOpen}>
 				<h1>{infoText}</h1>
 			</ModalForInfo>
 			<input
@@ -174,19 +160,11 @@ function App() {
 
 			<textarea value={text} maxLength={500} onChange={textareaOnChange} />
 			{!textValidated && <Incorrect type={"text"} />}
-			<button
-				disabled={buttonsDisabled}
-				type={"submit"}
-				onClick={buttonSendOnClick}
-			>
+			<button disabled={buttonsDisabled} type={"submit"} onClick={buttonSendOnClick}>
 				Send!
 			</button>
 
-			<button
-				disabled={buttonsDisabled}
-				type={"reset"}
-				onClick={buttonResetOnClick}
-			>
+			<button disabled={buttonsDisabled} type={"reset"} onClick={buttonResetOnClick}>
 				Cancel!
 			</button>
 		</form>

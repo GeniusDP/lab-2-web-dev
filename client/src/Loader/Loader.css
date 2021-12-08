@@ -31,8 +31,8 @@
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
-	border: 5px cornsilk dashed;
-	box-shadow: 0 0 3px 0 cornsilk;
+	border: 5px var(--main-white) dashed;
+	box-shadow: 0 0 3px 0 var(--main-white);
 	animation: ani 1s forwards;
 }
 
