@@ -9,9 +9,10 @@
 		"build": "npm install --prefix ./client && npm run build --prefix ./client",
 		"lint:check": "npx eslint **/*.js --ignore-path .gitignore --no-error-on-unmatched-pattern",
 		"lint:fix": "npx eslint --fix **/*.js --ignore-path .gitignore --no-error-on-unmatched-pattern",
-		"fmt:check": "npx prettier --check . --ignore-path .gitignore",
+		"format:check": "npx prettier --check . --ignore-path .gitignore",
 		"format:fix": "npx prettier --write . --ignore-path .gitignore",
-		"browser_sync": "browser-sync start --server --files \"php/*.php,css/*.css,js/*.js,html/*.html,*.*\""
+		"browser_sync": "browser-sync start --server --files \"php/*.php,css/*.css,js/*.js,html/*.html,*.*\"",
+		"prepare": "husky install"
 	},
 	"keywords": [],
 	"author": "",
@@ -22,14 +23,14 @@
 		"eslint-plugin-import": "^2.24.2",
 		"express": "^4.17.1",
 		"nodemailer": "^6.7.0",
-		"nodemon": "^2.0.13",
 		"path": "^0.12.7"
 	},
 	"devDependencies": {
+		"nodemon": "^2.0.13",
 		"eslint": "^7.32.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-sonarjs": "^0.11.0",
-		"husky": "^7.0.2",
+		"husky": "^7.0.4",
 		"prettier": "2.4.1"
 	}
 }

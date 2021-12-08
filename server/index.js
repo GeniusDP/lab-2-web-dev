@@ -13,7 +13,7 @@ class Mailer {
 	}
 
 	send() {
-		let transporter = nodemailer.createTransport({
+		const transporter = nodemailer.createTransport({
 			service: "gmail",
 			auth: {
 				user: this.emailFrom,
@@ -21,13 +21,12 @@ class Mailer {
 			},
 		});
 
-		let mailOptions = {
+		const mailOptions = {
 			from: this.emailFrom,
 			to: this.emailTo,
 			subject: `A message to you from ${this.emailFrom}`,
-			text:
-				`This email is sent from ${this.username} ${this.surname} to you.\n` +
-				`Here is msg:\n${this.text}`,
+			text: `This email is sent from ${this.username} ${this.surname} 
+				to you.\n Here is msg:\n${this.text}`,
 		};
 
 		transporter.sendMail(mailOptions, (error, info) => {
@@ -46,9 +45,9 @@ app.use(express.json());
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
-let emailFrom = process.env.EMAIL_FROM;
-let passwordFrom = process.env.PASSWORD_FROM;
-let emailTo = process.env.EMAIL_TO; //by default
+const emailFrom = process.env.EMAIL_FROM;
+const passwordFrom = process.env.PASSWORD_FROM;
+const emailTo = process.env.EMAIL_TO; //by default
 
 const IPAddressesAndTimers = new Map();
 
@@ -59,11 +58,10 @@ let requiredInfo = {
 	emailTo: "",
 };
 
-let timer = 30000; //how many milliseconds will be between two messages(minimum)
-
+const timer = 30000;
 app.post("/send_info", (request, response) => {
-	let ip =
-		request.headers["x-forwarded-for"] || request.socket.remoteAddress || null;
+	const pt = request.socket.remoteAddress || null;
+	const ip = request.headers["x-forwarded-for"] || pt;
 	console.log("<<<<<<<< ip address: " + ip); //this is an ip address of user
 	if (!IPAddressesAndTimers.get(ip)) {
 		//this user did not send any mail
@@ -80,7 +78,7 @@ app.post("/send_info", (request, response) => {
 			requiredInfo.text,
 			emailFrom,
 			passwordFrom,
-			emailTo
+			emailTo,
 		);
 		console.log(requiredInfo);
 		mailer.send();
