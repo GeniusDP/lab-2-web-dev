@@ -5,7 +5,7 @@ on:
       - main-pull-request
 jobs:
   build_and_preview:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
